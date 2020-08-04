@@ -1,0 +1,66 @@
+<div class="row mb-3">
+  <div class="col-auto">
+    <div class="input-group flex-nowrap">
+      <div class="input-group-prepend mr-2">
+        Cari kode/nama mata kuliah
+      </div>
+      <input type="text" name="filter" id="filter" [(ngModel)]="searchText" />
+    </div>
+  </div>
+  <div class="col-auto">
+    <div class="input-group flex-nowrap">
+      <div class="input-group-prepend mr-2">
+        Program Studi
+      </div>
+      <select class="form-control form-control-sm" [(ngModel)]="searchProdi">
+        <option *ngFor="let p of prodi">{{ p }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-auto">
+    <div class="input-group flex-nowrap">
+      <div class="input-group-prepend mr-2">
+        Hari
+      </div>
+      <select class="form-control form-control-sm" [(ngModel)]="searchHari">
+        <option *ngFor="let h of hari">{{ h }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-auto">
+    <div class="input-group flex-nowrap">
+      <a class="btn btn-outline-secondary btn-sm" (click)="clearFilter()"
+        >Clear filter</a
+      >
+    </div>
+  </div>
+</div>
+<div class="card-columns">
+  <div
+    class="card"
+    *ngFor="
+      let course of courses
+        | resultFilter: searchText
+        | prodiFilter: searchProdi
+        | hariFilter: searchHari
+    "
+  >
+    <div class="card-body">
+      <h5 class="card-title">{{ course.nama_mk }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ course.kode_mk }}</h6>
+      <p class="card-text">
+        Kelas/ruang: {{ course.kelas }}/{{ course.ruangan }}<br />
+        Hari/waktu: {{ course.hari }},{{ course.mulai }}-{{ course.selesai
+        }}<br />
+      </p>
+      <a
+        [routerLink]="'/course/' + course.course_id"
+        class="card-link btn btn-primary btn-sm"
+        >Course Detail</a
+      >
+      <a href="#" class="card-link btn btn-outline-info btn-sm"
+        >Open in Classroom</a
+      >
+    </div>
+  </div>
+</div>
