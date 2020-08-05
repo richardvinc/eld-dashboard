@@ -9,7 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CourseDetailPageComponent implements OnInit {
   courseId;
-  course;
+  course = null;
+  teachers = null;
+  students = null;
+  courseworks = null;
 
   constructor(private route: ActivatedRoute, private cs: CourseService) {}
 
@@ -21,9 +24,12 @@ export class CourseDetailPageComponent implements OnInit {
   }
 
   getCourse(courseId): void {
-    this.cs.getCourse(courseId).subscribe((course) => {
-      this.course = course;
-      console.log(course);
+    this.cs.getCourse(courseId).subscribe((param) => {
+      this.course = param.course[0];
+      this.students = param.students;
+      this.teachers = param.teachers;
+      this.courseworks = param.courseworks;
+      console.log(param);
     });
   }
 }

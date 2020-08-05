@@ -1,1 +1,149 @@
-<p>course-detail-page works!</p>
+<div class="row" *ngIf="!course">
+  <div class="col-sm-12 text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="course">
+  <div class="col-sm-12">
+    <h1>{{ course.kode_mk }}/{{ course.nama_mk }}</h1>
+    <h3>{{ course.prodi }}</h3>
+    <h3>{{ course.hari }}, {{ course.mulai }}-{{ course.selesai }}</h3>
+    <h4>Ruangan {{ course.ruangan }}</h4>
+  </div>
+  <hr />
+  <div class="col-sm-12">
+    <div class="accordion" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left"
+              type="button"
+              data-toggle="collapse"
+              data-target="#collapseOne"
+              aria-expanded="false"
+              aria-controls="collapseOne"
+            >
+              Teachers
+            </button>
+          </h2>
+        </div>
+
+        <div
+          id="collapseOne"
+          class="collapse"
+          aria-labelledby="headingOne"
+          data-parent="#accordionExample"
+        >
+          <div class="card-body">
+            <li class="list-group-item" *ngFor="let teacher of teachers">
+              {{ teacher.name.fullName }}
+            </li>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              Students
+            </button>
+          </h2>
+        </div>
+        <div
+          id="collapseTwo"
+          class="collapse"
+          aria-labelledby="headingTwo"
+          data-parent="#accordionExample"
+        >
+          <div class="card-body">
+            <li class="list-group-item" *ngFor="let student of students">
+              {{ student.name.fullName }}
+            </li>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingThree">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree"
+            >
+              Courseworks
+            </button>
+          </h2>
+        </div>
+        <div
+          id="collapseThree"
+          class="collapse"
+          aria-labelledby="headingThree"
+          data-parent="#accordionExample"
+        >
+          <div class="card-body">
+            <div class="accordion" id="accordionCoursework">
+              <div class="card" *ngFor="let coursework of courseworks">
+                <div class="card-header" [id]="'heading-' + coursework.id">
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link btn-block text-left"
+                      type="button"
+                      data-toggle="collapse"
+                      [attr.data-target]="'#course-' + coursework.id"
+                      aria-expanded="false"
+                      [attr.aria-controls]="'course-' + coursework.id"
+                    >
+                      {{ coursework.title }}
+                    </button>
+                  </h2>
+                </div>
+
+                <div
+                  [id]="'course-' + coursework.id"
+                  class="collapse"
+                  [attr.aria-labelledby]="'heading-' + coursework.id"
+                  data-parent="#accordionCoursework"
+                >
+                  <div class="card-body">
+                    <div>
+                      <strong>Description: </strong>
+                      {{ coursework.description }}
+                    </div>
+                    <div *ngIf="coursework.dueDate">
+                      <strong>Due date: </strong>
+                      {{ coursework.dueDate.day }}/{{
+                        coursework.dueDate.month
+                      }}/{{ coursework.dueDate.year }}
+                      <span *ngIf="coursework.dueTime">
+                        {{ coursework.dueTime.hours }}:{{
+                          coursework.dueTime.minutes
+                        }}
+                      </span>
+                    </div>
+                    <div *ngIf="coursework.materials">
+                      <strong>Material:</strong>
+                      {{ coursework.materials | json }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
