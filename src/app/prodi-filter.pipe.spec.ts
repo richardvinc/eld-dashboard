@@ -1,4 +1,4 @@
-import { ProdiFilterPipe } from './prodi-filter.pipe';
+import { ProdiFilterPipe } from './pipe/prodi-filter.pipe';
 
 describe('ProdiFilterPipe', () => {
   it('create an instance', () => {

@@ -20,16 +20,47 @@ export class CourseDetailPageComponent implements OnInit {
     this.route.paramMap.subscribe((param) => {
       this.courseId = param.get('courseId');
       this.getCourse(this.courseId);
+      this.getCoursework(this.courseId);
+      this.getTeacher(this.courseId);
+      this.getStudent(this.courseId);
     });
   }
 
   getCourse(courseId): void {
     this.cs.getCourse(courseId).subscribe((param) => {
-      this.course = param.course[0];
-      this.students = param.students;
-      this.teachers = param.teachers;
-      this.courseworks = param.courseworks;
+      this.course = param;
       console.log(param);
     });
+  }
+
+  getTeacher(courseId): void {
+    this.cs.getTeacher(courseId).subscribe((param) => {
+      this.teachers = param;
+      console.log(param);
+    });
+  }
+
+  getStudent(courseId): void {
+    this.cs.getStudent(courseId).subscribe((param) => {
+      this.students = param;
+      console.log(param);
+    });
+  }
+
+  getCoursework(courseId): void {
+    this.cs.getCoursework(courseId).subscribe((param) => {
+      this.courseworks = param;
+      console.log(param);
+    });
+  }
+
+  titleCase(str): string {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map((word) => {
+        return word.replace(word[0], word[0].toUpperCase());
+      })
+      .join(' ');
   }
 }

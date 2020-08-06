@@ -4,7 +4,7 @@
     <h6 class="card-subtitle mb-2 text-muted">{{ course.kode_mk }}</h6>
     <p class="card-text">
       Kelas/ruang: {{ course.kelas }}/{{ course.ruangan }}<br />
-      Hari/waktu: {{ course.hari }},{{ course.mulai }}-{{ course.selesai
+      Hari/waktu: {{ course.hari }}, {{ course.mulai }}-{{ course.selesai
       }}<br />
     </p>
     <a
@@ -12,7 +12,11 @@
       class="card-link btn btn-primary btn-sm"
       >Course Detail</a
     >
-    <a href="#" class="card-link btn btn-outline-info btn-sm"
+    <a
+      [href]="course.link"
+      [ngClass]="{ disabled: course.link === '#N/A' }"
+      target="_blank"
+      class="card-link btn btn-info btn-sm"
       >Open in Classroom</a
     >
   </div>

@@ -1,4 +1,4 @@
-import { HariFilterPipe } from './hari-filter.pipe';
+import { HariFilterPipe } from './pipe/hari-filter.pipe';
 
 describe('HariFilterPipe', () => {
   it('create an instance', () => {

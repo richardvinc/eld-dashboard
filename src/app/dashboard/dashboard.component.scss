@@ -1,5 +1,9 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 
+.filter-bar {
+  background-color: #fff !important;
+}
+
 .card-columns {
   @include media-breakpoint-only(sm) {
     column-count: 1;

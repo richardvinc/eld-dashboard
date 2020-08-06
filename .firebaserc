@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "el-dashboard-1596521281930": {
+      "hosting": {
+        "eld": [
+          "el-dashboard-1596521281930"
+        ]
+      }
+    }
+  }
+}
