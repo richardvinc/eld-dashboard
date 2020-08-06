@@ -19,30 +19,22 @@ export class DashboardComponent implements OnInit {
   constructor(private cs: CourseService, private us: UserService) {}
 
   ngOnInit(): void {
-    // this.getCourses();
-    this.us.getUser().then(
-      (token) => {
-        console.log(token);
+    this.getCourses();
+  }
+
+  async getCourses(): Promise<any> {
+    const token = await this.us.getUser().then(
+      (param) => {
+        return param;
       },
       (err) => {
         console.log(err);
       }
     );
-  }
 
-  getCourses(): void {
-    this.cs
-      .getCourses()
-      .then((courses) => {
-        this.courses = courses;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // .subscribe((courses) => {
-    //   this.courses = courses;
-    // });
+    this.cs.getCourses(token).subscribe((courses) => {
+      this.courses = courses;
+    });
   }
 
   clearFilter(): void {
