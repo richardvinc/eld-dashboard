@@ -1,6 +1,10 @@
 <div class="card mt-3">
   <div class="card-body">
     <h5 class="card-title">Pencarian Laporan</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      Fitur ini akan menarik data lima tugas terakhir untuk setiap kelas yang
+      terjadwal pada hari tertentu.
+    </h6>
     <form>
       <!-- <div class="form-group">
         <label for="kode_mk">Kode Mata Kuliah</label>
@@ -24,7 +28,7 @@
           class="btn btn-info"
           [ngClass]="{ disabled: !reports }"
         >
-          Export to CSV
+          Ekspor ke CSV
         </button>
         <button
           type="submit"
@@ -37,10 +41,17 @@
     </form>
   </div>
 </div>
+<div
+  class="spinner-border text-primary m-3 text-center"
+  role="status"
+  *ngIf="!reports && searchClicked"
+>
+  <span class="sr-only">Memproses...</span>
+</div>
 <div class="accordion mt-2" id="mainAccordion">
   <div class="card my-2" *ngFor="let report of reports">
     <div *ngIf="report.course">
-      <div class="card-body" *ngIf="report.course">
+      <div class="card-body mb-0 pb-0" *ngIf="report.course">
         <h5 class="card-title">{{ report.course.nama_mk }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">
           {{ report.course.kode_mk }} |
@@ -58,18 +69,16 @@
         class="card-header header-white"
         [id]="'heading' + report.course.course_id"
       >
-        <h2 class="mb-0">
-          <button
-            class="btn btn-link btn-block text-left collapsed"
-            type="button"
-            data-toggle="collapse"
-            [attr.data-target]="'#collapse' + report.course.course_id"
-            aria-expanded="false"
-            [attr.aria-controls]="'collapse' + report.course.course_id"
-          >
-            Courseworks
-          </button>
-        </h2>
+        <button
+          class="btn btn-primary collapsed"
+          type="button"
+          data-toggle="collapse"
+          [attr.data-target]="'#collapse' + report.course.course_id"
+          aria-expanded="false"
+          [attr.aria-controls]="'collapse' + report.course.course_id"
+        >
+          Tugas dan Latihan
+        </button>
       </div>
       <div
         [id]="'collapse' + report.course.course_id"
@@ -97,7 +106,7 @@
               >
                 <h2 class="mb-0">
                   <button
-                    class="btn btn-link btn-block text-left"
+                    class="btn btn-link text-left"
                     type="button"
                     data-toggle="collapse"
                     [attr.data-target]="'#course-' + coursework.id"
@@ -119,11 +128,11 @@
               >
                 <div class="card-body">
                   <div>
-                    <strong>Description: </strong>
+                    <strong>Deskripsi: </strong>
                     {{ coursework.description }}
                   </div>
                   <div *ngIf="coursework.dueDate">
-                    <strong>Due date: </strong>
+                    <strong>Batas akhir: </strong>
 
                     {{
                       coursework.dueDate.month +
@@ -143,7 +152,7 @@
                       class="btn btn-primary btn-sm"
                       [href]="coursework.alternateLink"
                       target="_blank"
-                      >View Coursework</a
+                      >Buka di Classroom</a
                     >
                   </div>
                   <!-- <div *ngIf="coursework.materials">

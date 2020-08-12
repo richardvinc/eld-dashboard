@@ -1,7 +1,7 @@
 <div class="row" *ngIf="!course">
   <div class="col-sm-12 text-center">
     <div class="spinner-border text-primary" role="status">
-      <span class="sr-only">Loading...</span>
+      <span class="sr-only">Memproses...</span>
     </div>
   </div>
 </div>
@@ -35,14 +35,14 @@
         <div class="card-header header-white" id="headingOne">
           <h2 class="mb-0">
             <button
-              class="btn btn-link btn-block text-left"
+              class="btn btn-link text-left"
               type="button"
               data-toggle="collapse"
               data-target="#collapseOne"
               aria-expanded="false"
               aria-controls="collapseOne"
             >
-              Teachers
+              Dosen
             </button>
           </h2>
         </div>
@@ -63,7 +63,9 @@
             </div>
             <ul *ngIf="teachers" class="list-group list-group-flush">
               <li class="list-group-item" *ngFor="let teacher of teachers">
-                {{ titleCase(teacher.name.fullName) }}
+                {{ titleCase(teacher.name.fullName) }} ({{
+                  teacher.emailAddress
+                }})
               </li>
             </ul>
           </div>
@@ -73,14 +75,14 @@
         <div class="card-header header-white" id="headingTwo">
           <h2 class="mb-0">
             <button
-              class="btn btn-link btn-block text-left collapsed"
+              class="btn btn-link text-left collapsed"
               type="button"
               data-toggle="collapse"
               data-target="#collapseTwo"
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              Students
+              Daftar Mahasiswa
             </button>
           </h2>
         </div>
@@ -100,7 +102,9 @@
             </div>
             <ul *ngIf="students" class="list-group list-group-flush">
               <li class="list-group-item" *ngFor="let student of students">
-                {{ titleCase(student.name.fullName) }}
+                {{ titleCase(student.name.fullName) }} ({{
+                  student.emailAddress
+                }})
               </li>
             </ul>
           </div>
@@ -110,14 +114,14 @@
         <div class="card-header header-white" id="headingThree">
           <h2 class="mb-0">
             <button
-              class="btn btn-link btn-block text-left collapsed"
+              class="btn btn-link text-left collapsed"
               type="button"
               data-toggle="collapse"
               data-target="#collapseThree"
               aria-expanded="false"
               aria-controls="collapseThree"
             >
-              Courseworks
+              Tugas dan Latihan
             </button>
           </h2>
         </div>
@@ -133,7 +137,7 @@
               class="spinner-border text-primary m-3"
               role="status"
             >
-              <span class="sr-only">Loading...</span>
+              <span class="sr-only">Memproses...</span>
             </div>
             <div *ngIf="courseworks" class="accordion" id="accordionCoursework">
               <div class="card" *ngFor="let coursework of courseworks">
@@ -165,11 +169,11 @@
                 >
                   <div class="card-body">
                     <div>
-                      <strong>Description: </strong>
+                      <strong>Deskripsi: </strong>
                       {{ coursework.description }}
                     </div>
                     <div *ngIf="coursework.dueDate">
-                      <strong>Due date: </strong>
+                      <strong>Batas akhir: </strong>
 
                       {{
                         coursework.dueDate.month +
@@ -189,7 +193,7 @@
                         class="btn btn-primary btn-sm"
                         [href]="coursework.alternateLink"
                         target="_blank"
-                        >View Coursework</a
+                        >Buka di Classroom</a
                       >
                     </div>
                     <!-- <div *ngIf="coursework.materials">

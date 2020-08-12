@@ -10,8 +10,8 @@ import { json2csv } from 'json-2-csv';
 })
 export class ReportComponent implements OnInit {
   reports;
-  day;
-
+  day = '';
+  searchClicked = false;
   constructor(private cs: CourseService, private us: UserService) {}
 
   ngOnInit(): void {}
@@ -20,11 +20,15 @@ export class ReportComponent implements OnInit {
     if (this.day === '') {
       return null;
     }
+
+    this.searchClicked = true;
+
     const token = await this.us.getUser().then(
       (param) => {
         return param;
       },
       (err) => {
+        this.searchClicked = false;
         console.log(err);
         this.us.login();
       }
