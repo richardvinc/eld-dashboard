@@ -1,0 +1,145 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title">Pencarian Laporan</h5>
+    <form>
+      <div class="form-group">
+        <label for="kode_mk">Kode Mata Kuliah</label>
+        <input type="text" class="form-control" id="kode_mk" />
+      </div>
+      <div class="form-group">
+        <label for="hari">Hari</label>
+        <select class="form-control" id="hari" name="day" [(ngModel)]="day">
+          <option></option>
+          <option>Senin</option>
+          <option>Selasa</option>
+          <option>Rabu</option>
+          <option>Kamis</option>
+          <option>Jumat</option>
+        </select>
+      </div>
+      <button type="submit" (click)="searchReport()" class="btn btn-primary">
+        Cari
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="accordion mt-2" id="mainAccordion" *ngIf="reports">
+  <div class="card my-2" *ngFor="let report of reports">
+    <div class="card-body">
+      <h5 class="card-title">{{ report.course.nama_mk }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        {{ report.course.kode_mk }} |
+        {{ cleanNama(report.course.teachers_iap) }}
+      </h6>
+      <p class="card-text">
+        Kelas/ruang: {{ report.course.kelas }}/{{ report.course.ruangan }}<br />
+        Hari/waktu: {{ report.course.hari }}, {{ report.course.mulai }}-{{
+          report.course.selesai
+        }}<br />
+      </p>
+    </div>
+    <div
+      class="card-header header-white"
+      [id]="'heading' + report.course.course_id"
+    >
+      <h2 class="mb-0">
+        <button
+          class="btn btn-link btn-block text-left collapsed"
+          type="button"
+          data-toggle="collapse"
+          [attr.data-target]="'#collapse' + report.course.course_id"
+          aria-expanded="false"
+          [attr.aria-controls]="'collapse' + report.course.course_id"
+        >
+          Courseworks
+        </button>
+      </h2>
+    </div>
+    <div
+      [id]="'collapse' + report.course.course_id"
+      class="collapse"
+      [attr.aria-labelledby]="'heading' + report.course.course_id"
+      data-parent="#mainAccordion"
+    >
+      <div class="card-body p-1">
+        <div
+          *ngIf="!report.courseworks"
+          class="spinner-border text-primary m-3"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div
+          *ngIf="report.courseworks"
+          class="accordion"
+          id="accordionCoursework"
+        >
+          <div class="card" *ngFor="let coursework of report.courseworks">
+            <div
+              class="card-header header-white p-1 ml-4"
+              [id]="'heading-' + coursework.id"
+            >
+              <h2 class="mb-0">
+                <button
+                  class="btn btn-link btn-block text-left"
+                  type="button"
+                  data-toggle="collapse"
+                  [attr.data-target]="'#course-' + coursework.id"
+                  aria-expanded="false"
+                  [attr.aria-controls]="'course-' + coursework.id"
+                >
+                  {{ coursework.title }} ({{
+                    coursework.creationTime | date: "longDate"
+                  }})
+                </button>
+              </h2>
+            </div>
+
+            <div
+              [id]="'course-' + coursework.id"
+              class="collapse ml-4"
+              [attr.aria-labelledby]="'heading-' + coursework.id"
+              data-parent="#accordionCoursework"
+            >
+              <div class="card-body">
+                <div>
+                  <strong>Description: </strong>
+                  {{ coursework.description }}
+                </div>
+                <div *ngIf="coursework.dueDate">
+                  <strong>Due date: </strong>
+
+                  {{
+                    coursework.dueDate.month +
+                      "/" +
+                      coursework.dueDate.day +
+                      "/" +
+                      coursework.dueDate.year | date: "longDate"
+                  }}
+                  <span *ngIf="coursework.dueTime">
+                    {{ coursework.dueTime.hours }}:{{
+                      coursework.dueTime.minutes
+                    }}
+                  </span>
+                </div>
+                <div class="mt-2">
+                  <a
+                    class="btn btn-primary btn-sm"
+                    [href]="coursework.alternateLink"
+                    target="_blank"
+                    >View Coursework</a
+                  >
+                </div>
+                <!-- <div *ngIf="coursework.materials">
+                      <strong>Material:</strong>
+                      {{ coursework.materials | json }}
+                    </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

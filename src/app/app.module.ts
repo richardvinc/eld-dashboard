@@ -16,6 +16,7 @@ import { HariFilterPipe } from './pipe/hari-filter.pipe';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ReportComponent } from './report/report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     FilterPipe,
     ProdiFilterPipe,
     HariFilterPipe,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,

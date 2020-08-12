@@ -4,6 +4,7 @@ import { ShellComponent } from './shell/shell.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Page404Component } from './page404/page404.component';
 import { CourseDetailPageComponent } from './course-detail-page/course-detail-page.component';
+import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+      },
+      {
+        path: 'report',
+        component: ReportComponent,
       },
       {
         path: 'course/:courseId',
