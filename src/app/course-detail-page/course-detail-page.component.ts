@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'firebase';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-course-detail-page',
@@ -14,41 +16,61 @@ export class CourseDetailPageComponent implements OnInit {
   students = null;
   courseworks = null;
 
-  constructor(private route: ActivatedRoute, private cs: CourseService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private cs: CourseService,
+    private us: UserService
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((param) => {
       this.courseId = param.get('courseId');
-      this.getCourse(this.courseId);
-      this.getCoursework(this.courseId);
-      this.getTeacher(this.courseId);
-      this.getStudent(this.courseId);
+
+      this.getCourseDetail();
     });
   }
 
-  getCourse(courseId): void {
-    this.cs.getCourse(courseId).subscribe((param) => {
+  async getCourseDetail(): Promise<any> {
+    const token = await this.us.getUser().then(
+      (param) => {
+        console.log(param);
+        return param;
+      },
+      (err) => {
+        console.log(err);
+        this.us.login();
+      }
+    );
+
+    this.getCourse(token, this.courseId);
+    this.getCoursework(token, this.courseId);
+    this.getTeacher(token, this.courseId);
+    this.getStudent(token, this.courseId);
+  }
+
+  getCourse(token, courseId): void {
+    this.cs.getCourse(token, courseId).subscribe((param) => {
       this.course = param;
       console.log(param);
     });
   }
 
-  getTeacher(courseId): void {
-    this.cs.getTeacher(courseId).subscribe((param) => {
+  getTeacher(token, courseId): void {
+    this.cs.getTeacher(token, courseId).subscribe((param) => {
       this.teachers = param;
       console.log(param);
     });
   }
 
-  getStudent(courseId): void {
-    this.cs.getStudent(courseId).subscribe((param) => {
+  getStudent(token, courseId): void {
+    this.cs.getStudent(token, courseId).subscribe((param) => {
       this.students = param;
       console.log(param);
     });
   }
 
-  getCoursework(courseId): void {
-    this.cs.getCoursework(courseId).subscribe((param) => {
+  getCoursework(token, courseId): void {
+    this.cs.getCoursework(token, courseId).subscribe((param) => {
       this.courseworks = param;
       console.log(param);
     });

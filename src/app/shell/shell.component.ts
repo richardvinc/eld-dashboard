@@ -6,9 +6,17 @@ import { UserService } from '../user.service';
   styleUrls: ['./shell.component.scss'],
 })
 export class ShellComponent implements OnInit {
-  constructor(private user: UserService) {}
+  constructor(private us: UserService) {}
 
   ngOnInit(): void {
-    this.user.login();
+    this.us.getUser().then(
+      (token) => {
+        // console.log(token);
+      },
+      (err) => {
+        console.log(err);
+        this.us.login();
+      }
+    );
   }
 }

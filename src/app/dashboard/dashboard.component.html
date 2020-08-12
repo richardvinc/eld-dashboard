@@ -36,7 +36,7 @@
   </div>
 </div>
 <div class="card-columns">
-  <course-card
+  <app-course-card
     *ngFor="
       let course of courses
         | resultFilter: searchText
@@ -44,5 +44,5 @@
         | hariFilter: searchHari
     "
     [course]="course"
-  ></course-card>
+  ></app-course-card>
 </div>

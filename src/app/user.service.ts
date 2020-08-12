@@ -29,9 +29,19 @@ export class UserService {
 
   getUser(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.firebaseAuth.authState.subscribe((user) => {
-        resolve(user.getIdToken());
-      });
+      this.firebaseAuth.authState.subscribe(
+        (loggedInUser) => {
+          if (loggedInUser) {
+            resolve(loggedInUser.getIdToken());
+          } else {
+            reject(null);
+          }
+        },
+        (err) => {
+          console.log(err);
+          reject(err);
+        }
+      );
     });
   }
 }

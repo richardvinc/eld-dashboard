@@ -1,12 +1,15 @@
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">{{ course.nama_mk }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{ course.kode_mk }}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">
+      {{ course.kode_mk }} | {{ cleanNama(course.teachers_iap) }}<br />
+    </h6>
     <p class="card-text">
       Kelas/ruang: {{ course.kelas }}/{{ course.ruangan }}<br />
       Hari/waktu: {{ course.hari }}, {{ course.mulai }}-{{ course.selesai
       }}<br />
     </p>
+
     <a
       [routerLink]="'/course/' + course.course_id"
       class="card-link btn btn-primary btn-sm"
