@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { CourseService } from '../course.service';
 import { UserService } from '../user.service';
+import { json2csv } from 'json-2-csv';
 
 @Component({
   selector: 'app-report',
@@ -34,6 +34,29 @@ export class ReportComponent implements OnInit {
       console.log(reports);
       this.reports = reports;
     });
+  }
+
+  exportReport(): void {
+    json2csv(
+      this.reports,
+      (err, res) => {
+        if (err) {
+          console.log(err);
+        }
+
+        const blob = new Blob([res], { type: 'text/csv;charset=utf-8' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+
+        // console.log(res);
+      },
+      {
+        expandArrayObjects: true,
+        unwindArrays: true,
+        emptyFieldValue: '',
+        excelBOM: true,
+      }
+    );
   }
 
   cleanNama(teachers: string): string {
