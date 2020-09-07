@@ -41,7 +41,7 @@ export class CourseDetailPageComponent implements OnInit {
   async getCourseDetail(): Promise<any> {
     const token = await this.us.getUser().then(
       (param) => {
-        console.log(param);
+        // console.log(param);
         return param;
       },
       (err) => {
@@ -57,31 +57,51 @@ export class CourseDetailPageComponent implements OnInit {
   }
 
   getCourse(token, courseId): void {
-    this.cs.getCourse(token, courseId).subscribe((param) => {
-      this.course = param;
-      console.log(param);
-    });
+    this.cs.getCourse(token, courseId).subscribe(
+      (param) => {
+        this.course = param;
+        // console.log(param);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getTeacher(token, courseId): void {
-    this.cs.getTeacher(token, courseId).subscribe((param) => {
-      this.teachers = param;
-      console.log(param);
-    });
+    this.cs.getTeacher(token, courseId).subscribe(
+      (param) => {
+        this.teachers = param;
+        // console.log(param);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getStudent(token, courseId): void {
-    this.cs.getStudent(token, courseId).subscribe((param) => {
-      this.students = param;
-      console.log(param);
-    });
+    this.cs.getStudent(token, courseId).subscribe(
+      (param) => {
+        this.students = param;
+        // console.log(param);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getCoursework(token, courseId): void {
-    this.cs.getCoursework(token, courseId).subscribe((param) => {
-      this.courseworks = param;
-      console.log(param);
-    });
+    this.cs.getCoursework(token, courseId).subscribe(
+      (param) => {
+        this.courseworks = param;
+        // console.log(param);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   titleCase(str): string {

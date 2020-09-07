@@ -46,9 +46,14 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    this.cs.getCourses(token).subscribe((courses) => {
-      this.courses = courses;
-    });
+    this.cs.getCourses(token).subscribe(
+      (courses) => {
+        this.courses = courses;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   clearFilter(): void {
