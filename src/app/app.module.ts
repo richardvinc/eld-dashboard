@@ -17,6 +17,10 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ReportComponent } from './report/report.component';
+import { LoginComponent } from './login/login.component';
+import { TecherCardComponent } from './techer-card/techer-card.component';
+import { StudentCardComponent } from './student-card/student-card.component';
+import { CourseworkCardComponent } from './coursework-card/coursework-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +33,10 @@ import { ReportComponent } from './report/report.component';
     ProdiFilterPipe,
     HariFilterPipe,
     ReportComponent,
+    LoginComponent,
+    TecherCardComponent,
+    StudentCardComponent,
+    CourseworkCardComponent,
   ],
   imports: [
     BrowserModule,

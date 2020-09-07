@@ -16,7 +16,7 @@ export class ReportComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async searchReport(): Promise<any> {
+  async searchReport(getAll): Promise<any> {
     if (this.day === '') {
       return null;
     }
@@ -29,12 +29,12 @@ export class ReportComponent implements OnInit {
       },
       (err) => {
         this.searchClicked = false;
-        console.log(err);
+        // console.log(err);
         this.us.login();
       }
     );
 
-    this.cs.getCourseworkByDay(token, this.day).subscribe((reports) => {
+    this.cs.getCourseworkByDay(token, this.day, getAll).subscribe((reports) => {
       console.log(reports);
       this.reports = reports;
     });

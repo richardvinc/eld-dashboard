@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,10 +17,22 @@ export class DashboardComponent implements OnInit {
   prodi = ['', 'AK', 'MJ', 'AB', 'IK', 'SI', 'TI'];
   hari = ['', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
-  constructor(private cs: CourseService, private us: UserService) {}
+  constructor(
+    private cs: CourseService,
+    private us: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.getCourses();
+    this.us.getUser().then(
+      (res) => {
+        this.getCourses();
+      },
+      (err) => {
+        console.log(err);
+        this.router.navigate(['login'], { replaceUrl: true });
+      }
+    );
   }
 
   async getCourses(): Promise<any> {
@@ -29,7 +42,7 @@ export class DashboardComponent implements OnInit {
       },
       (err) => {
         console.log(err);
-        this.us.login();
+        this.router.navigate(['login']);
       }
     );
 

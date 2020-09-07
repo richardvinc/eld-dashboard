@@ -21,22 +21,35 @@
           <option>Jumat</option>
         </select>
       </div>
-      <div class="text-right">
-        <button
-          type="submit"
-          (click)="exportReport()"
-          class="btn btn-info"
-          [ngClass]="{ disabled: !reports }"
-        >
-          Ekspor ke CSV
-        </button>
-        <button
-          type="submit"
-          (click)="searchReport()"
-          class="btn btn-primary ml-3"
-        >
-          Cari
-        </button>
+      <div class="row">
+        <div class="col-sm-6 text-left p-0">
+          <button
+            type="submit"
+            (click)="searchReport(true)"
+            class="btn btn-info ml-3"
+            [ngClass]="{ disabled: !day }"
+          >
+            Ambil Semua Data
+          </button>
+        </div>
+        <div class="col-sm-6 text-right">
+          <button
+            type="submit"
+            (click)="exportReport()"
+            class="btn btn-info"
+            [ngClass]="{ disabled: !reports }"
+          >
+            Ekspor ke CSV
+          </button>
+          <button
+            type="submit"
+            (click)="searchReport(false)"
+            class="btn btn-primary ml-3"
+            [ngClass]="{ disabled: !day }"
+          >
+            Ambil 5 Data Tugas Terakhir
+          </button>
+        </div>
       </div>
     </form>
   </div>

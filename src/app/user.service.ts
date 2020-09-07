@@ -9,22 +9,24 @@ import { auth } from 'firebase/app';
 export class UserService {
   constructor(public firebaseAuth: AngularFireAuth) {}
 
-  login(): void {
-    console.log('login');
-    this.firebaseAuth.signInWithPopup(new auth.GoogleAuthProvider()).then(
-      (user) => {
-        localStorage.setItem('user', JSON.stringify(user));
-        console.log(user);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+  login(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.firebaseAuth.setPersistence('none');
+      this.firebaseAuth.signInWithPopup(new auth.GoogleAuthProvider()).then(
+        (user) => {
+          // localStorage.setItem('user', JSON.stringify(user));
+          resolve(user);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
   }
 
   logout(): void {
     this.firebaseAuth.signOut();
-    localStorage.removeItem('user');
+    localStorage.clear();
   }
 
   getUser(): Promise<any> {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'firebase';
 import { UserService } from '../user.service';
 
@@ -19,15 +19,23 @@ export class CourseDetailPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private cs: CourseService,
-    private us: UserService
+    private us: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((param) => {
-      this.courseId = param.get('courseId');
+    this.us.getUser().then(
+      (res) => {
+        this.route.paramMap.subscribe((param) => {
+          this.courseId = param.get('courseId');
 
-      this.getCourseDetail();
-    });
+          this.getCourseDetail();
+        });
+      },
+      (err) => {
+        this.router.navigate(['login'], { replaceUrl: true });
+      }
+    );
   }
 
   async getCourseDetail(): Promise<any> {
@@ -38,7 +46,7 @@ export class CourseDetailPageComponent implements OnInit {
       },
       (err) => {
         console.log(err);
-        this.us.login();
+        this.router.navigate(['login']);
       }
     );
 

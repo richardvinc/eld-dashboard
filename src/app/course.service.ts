@@ -42,9 +42,9 @@ export class CourseService {
     });
   }
 
-  getCourseworkByDay(token, day): Observable<any> {
+  getCourseworkByDay(token, day, getAll): Observable<any> {
     const header = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    return this.http.get(`${this.baseUrl}/courseworkbyday/${day}`, {
+    return this.http.get(`${this.baseUrl}/courseworkbyday/${day}/${getAll}`, {
       headers: header,
     });
   }
